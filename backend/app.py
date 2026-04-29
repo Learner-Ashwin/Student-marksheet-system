@@ -37,3 +37,15 @@ def add_student():
     conn.close()
 
     return jsonify({"message": "Student added successfully"})
+
+@app.route("/students", methods=["GET"])
+def get_students():
+    conn = get_db()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("SELECT * FROM students")
+    students = cursor.fetchall()
+
+    conn.close()
+
+    return jsonify(students)
